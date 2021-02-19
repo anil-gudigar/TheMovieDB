@@ -32,9 +32,3 @@ Movie DB App using Clean Architecture with MVVM pattern. Used Databinding, Daage
     Junit
 * Deployment instructions
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
