@@ -30,10 +30,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.appProperties['BASE_URL']
         }
         debug{
             minifyEnabled false
             testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.appProperties['BASE_URL_DEBUG']
         }
     }
     compileOptions {
@@ -104,6 +106,9 @@ dependencies {
     //Image Library
     api "$libraries.glide"
     api "$libraries.androidmaterial"
+
+    //logging
+    api "$libraries.timber"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
