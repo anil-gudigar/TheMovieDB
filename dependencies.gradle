@@ -1,0 +1,223 @@
+ext {
+    debugVersionFileName = "version_debug"
+    stagingVersionFileName = "version_staging"
+    releaseVersionFileName = "version_release"
+    MAJOR = "major"
+    MINOR = 'minor'
+    PATCH = 'patch'
+    BUILD = 'build'
+
+    appPropertiesFile = rootProject.file("app.properties")
+    appProperties = new Properties()
+    appProperties.load(new FileInputStream(appPropertiesFile))
+
+    configuration = [
+            package          : "com.moviedb.app",
+            compileSdkVersion: 30,
+            targetSdkVersion : 30,
+            minSdkVersion    : 21,
+            appVersionCode   : rootProject.readBuildCode(getVersionFileNameDependsOnBuildType()),
+            appVersionName   : rootProject.readVersionName(getVersionFileNameDependsOnBuildType(), getCurrentTaskName(), getEnvironmentName())
+    ]
+    commonDependencies = [
+            kotlinVersion                    : "1.3.31",
+            appCompatVersion                 : "1.1.0",
+            constraintLayoutVersion          : "1.1.3",
+            archLifeCycleVersion             : "1.1.1",
+            gsonVersion                      : "2.8.5",
+            rxKotlinVersion                  : "2.3.0",
+            rxAndroidVersion                 : "2.1.0",
+            retrofitVersion                  : "2.6.0",
+            okHttp3Version                   : "4.2.2",
+            glideVersion                     : "4.11.0",
+            junit4Version                    : "4.12",
+            testRunnerVersion                : "1.0.2",
+            mockKVersion                     : "1.8.13.kotlin13",
+            espressoVersion                  : "3.0.2",
+            daggerVersion                    : "2.23.2",
+            daggerannotationVersion          : "2.18",
+            androidxlegacyVersion            : "1.0.0",
+            androidxcoreVesrion              : "1.1.0",
+            multidexVersion                  : "2.0.1",
+            runtimeVersion                   : "2.2.0",
+            vectordrawableVersion            : "1.1.0",
+            navigationVersion                : "2.2.1",
+            lifecycleVersion                 : "2.2.0",
+            androidmaterialVersion           : "1.1.0",
+            installreferrer                  : "1.1",
+            easingVersion                    : "2.0@aar",
+            androidanimationsVersion         : "2.3@aar",
+            firebasecoreVersion              : "17.2.0",
+            firebasemessagingVersion         : "20.1.0",
+            playservicesgcmVersion           : "16.1.0",
+            sentryandroidVersion             : "1.7.16",
+            crashlyticsVersion               : "2.10.1",
+            amplitudeVersion                 : "2.25.2",
+            libphonenumberVersion            : "8.10.12-1",
+            androidimagecropperVersion       : "2.7.0",
+            MPAndroidChartVersion            : "v3.1.0",
+            expandablerecyclerviewVersion    : "1.3",
+            sendBirdVersion                  : "3.0.96",
+            roomVersion                      : "2.2.5",
+            awsversion                       : "2.14.+",
+            stethoVersion                    : "1.5.1",
+            biometricVersion                 : "1.0.1",
+            firebaseconfigVersion            : "19.1.0",
+            razorpayVersion                  : "1.5.12",
+            firebasePerformenceMonitorVersion: "19.0.5",
+            timberVersion                    : "4.7.1",
+            androiddesignVersion             : "28.0.0",
+            picassoVersion                   : "2.71828",
+            architectureLifecycleVersion     : "1.1.1",
+            guavaVersion                     : "27.0.1-android",
+            sqlcipherVersion                 : "4.3.0@aar",
+            androidxsqliteVersion            : "2.0.1",
+            analyticsVersion                 : "4.3.1",
+            firebaseanalyticsVersion         : "17.2.0",
+            leacysupportversion              : "1.0.0",
+            shimmerversion                   : "0.5.0",
+            kotlinxCoroutinesVersion         : "0.30.1",
+            lottieVersion                    : "3.4.4",
+            frescoVersion                    : "2.2.0",
+            frescoAnimatedGifVersion         : "1.9.0",
+            location                         : "17.1.0",
+            auth                             : "18.1.0",
+            identity                         : "17.0.0",
+            phoneselector                    : "17.4.0",
+            servicebase                      : "17.6.0",
+
+
+    ]
+
+
+    libraries = [
+            appCompat                    : "com.android.support:appcompat-v7:${commonDependencies.appCompatVersion}",
+            kotlinStdLib                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${commonDependencies.kotlinVersion}",
+            constraintLayout             : "com.android.support.constraint:constraint-layout:${commonDependencies.constraintLayoutVersion}",
+            recyclerview                 : "com.android.support:recyclerview-v7:${commonDependencies.appCompatVersion}",
+            archLifeCycle                : "android.arch.lifecycle:extensions:${commonDependencies.archLifeCycleVersion}",
+            gson                         : "com.google.code.gson:gson:${commonDependencies.gsonVersion}",
+            rxKotlin                     : "io.reactivex.rxjava2:rxkotlin:${commonDependencies.rxKotlinVersion}",
+            rxAndroid                    : "io.reactivex.rxjava2:rxandroid:${commonDependencies.rxAndroidVersion}",
+            rxjava                       : "io.reactivex.rxjava2:rxjava:2.2.0",
+            retrofit                     : "com.squareup.retrofit2:retrofit:${commonDependencies.retrofitVersion}",
+            retrofitGsonConverter        : "com.squareup.retrofit2:converter-gson:${commonDependencies.retrofitVersion}",
+            retrofitRxAdapter            : "com.squareup.retrofit2:adapter-rxjava2:${commonDependencies.retrofitVersion}",
+            okhttp3                      : "com.squareup.okhttp3:okhttp:${commonDependencies.okHttp3Version}",
+            okhttp3Interceptor           : "com.squareup.okhttp3:logging-interceptor:${commonDependencies.okHttp3Version}",
+            glide                        : "com.github.bumptech.glide:glide:${commonDependencies.glideVersion}",
+            dagger                       : "com.google.dagger:dagger:${commonDependencies.daggerVersion}",
+            daggerannotation             : "com.google.dagger:dagger-compiler:${commonDependencies.daggerVersion}",
+            daggerprocessor              : "com.google.dagger:dagger-android-processor:${commonDependencies.daggerVersion}",
+            daggerandroid                : "com.google.dagger:dagger-android:${commonDependencies.daggerVersion}",
+            daggerandroidsupport         : "com.google.dagger:dagger-android-support:${commonDependencies.daggerVersion}",
+            androidxlegacy               : "androidx.legacy:legacy-support-v4:${commonDependencies.androidxlegacyVersion}",
+            androidxcore                 : "androidx.core:core:${commonDependencies.androidxcoreVesrion}",
+            multidex                     : "androidx.multidex:multidex:${commonDependencies.multidexVersion}",
+            androidxwork                 : "androidx.work:work-runtime:${commonDependencies.runtimeVersion}",
+            androidxvectordrawable       : "androidx.vectordrawable:vectordrawable:${commonDependencies.vectordrawableVersion}",
+            biometric                    : "androidx.biometric:biometric:${commonDependencies.biometricVersion}",
+            firebaseconfig               : "com.google.firebase:firebase-config:${commonDependencies.firebaseconfigVersion}",
+            razorpay                     : "com.razorpay:checkout:${commonDependencies.razorpayVersion}",
+            androiddesign                : "com.android.support:design:${commonDependencies.androiddesignVersion}",
+            architectureLifecycle        : "android.arch.lifecycle:runtime:${commonDependencies.architectureLifecycleVersion}",
+            annotationProcessor          : "android.arch.lifecycle:compiler:${commonDependencies.architectureLifecycleVersion}",
+            guava                        : "com.google.guava:guava:${commonDependencies.guavaVersion}",
+
+            //navigation
+            androidxnavigationfragment   : "androidx.navigation:navigation-fragment:${commonDependencies.navigationVersion}",
+            androidxnavigationui         : "androidx.navigation:navigation-ui:${commonDependencies.navigationVersion}",
+            androidxnavigationfragmentktx: "androidx.navigation:navigation-fragment-ktx:${commonDependencies.navigationVersion}",
+            androidxnavigationuiktx      : "androidx.navigation:navigation-ui-ktx:${commonDependencies.navigationVersion}",
+
+            //lifecycle
+            androidxlifecycleextesion    : "androidx.lifecycle:lifecycle-extensions:${commonDependencies.lifecycleVersion}",
+            androidxlifecycleviewmodel   : "androidx.lifecycle:lifecycle-viewmodel-ktx:${commonDependencies.lifecycleVersion}",
+            lifecyclelivedataktx         : "androidx.lifecycle:lifecycle-livedata-ktx:${commonDependencies.lifecycleVersion}",
+            lifecycleviewmodelktx        : "androidx.lifecycle:lifecycle-viewmodel-ktx:${commonDependencies.lifecycleVersion}",
+
+            //Image Library
+            androidmaterial              : "com.google.android.material:material:${commonDependencies.androidmaterialVersion}",
+            installreferrer              : "com.android.installreferrer:installreferrer:${commonDependencies.installreferrer}",
+            picasso                      : "com.squareup.picasso:picasso:${commonDependencies.picassoVersion}",
+
+            //
+            easing                       : "com.daimajia.easing:library:${commonDependencies.easingVersion}",
+            androidanimations            : "com.daimajia.androidanimations:library:${commonDependencies.androidanimationsVersion}",
+
+            //firebase
+            firebasecore                 : "com.google.firebase:firebase-core:${commonDependencies.firebasecoreVersion}",
+            firebasemessaging            : "com.google.firebase:firebase-messaging:${commonDependencies.firebasemessagingVersion}",
+            playservicesgcm              : "com.google.android.gms:play-services-gcm:${commonDependencies.playservicesgcmVersion}",
+            firebasePerformenceMonitor   : "com.google.firebase:firebase-perf:${commonDependencies.firebasePerformenceMonitorVersion}",
+
+            //Crash reporting
+            sentryandroid                : "io.sentry:sentry-android:${commonDependencies.sentryandroidVersion}",
+            crashlytics                  : "com.crashlytics.sdk.android:crashlytics:${commonDependencies.crashlyticsVersion}",
+
+            amplitude                    : "com.amplitude:android-sdk:${commonDependencies.amplitudeVersion}",
+            libphonenumber               : "io.michaelrocks:libphonenumber-android:${commonDependencies.libphonenumberVersion}",
+            androidimagecropper          : "com.theartofdev.edmodo:android-image-cropper:${commonDependencies.androidimagecropperVersion}",
+
+            MPAndroidChart               : "com.github.PhilJay:MPAndroidChart:${commonDependencies.MPAndroidChartVersion}",
+            expandablerecyclerview       : "com.thoughtbot:expandablerecyclerview:${commonDependencies.expandablerecyclerviewVersion}",
+
+            sendbird                     : "com.sendbird.sdk:sendbird-android-sdk:${commonDependencies.sendBirdVersion}",
+            roomruntime                  : "androidx.room:room-runtime:${commonDependencies.roomVersion}",
+            roomruntimektx               : "androidx.room:room-ktx:${commonDependencies.roomVersion}",
+            roomcompiler                 : "androidx.room:room-compiler:${commonDependencies.roomVersion}",
+
+            awsversionS3                 : "com.amazonaws:aws-android-sdk-s3:${commonDependencies.awsversion}",
+            awsversionmobileClient       : "com.amazonaws:aws-android-sdk-mobile-client:${commonDependencies.awsversion}",
+            stetho                       : "com.facebook.stetho:stetho:${commonDependencies.stethoVersion}",
+            stethoOkhttp                 : "com.facebook.stetho:stetho-okhttp3:${commonDependencies.stethoVersion}",
+            sqlcipher                    : "net.zetetic:android-database-sqlcipher:${commonDependencies.sqlcipherVersion}",
+            androidxsqlite               : "androidx.sqlite:sqlite:${commonDependencies.androidxsqliteVersion}",
+            timber                       : "com.jakewharton.timber:timber:${commonDependencies.timberVersion}",
+            lifecycleextensions          : "androidx.lifecycle:lifecycle-extensions:${commonDependencies.lifecycleVersion}",
+            lifecycleruntime             : "androidx.lifecycle:lifecycle-runtime:${commonDependencies.lifecycleVersion}",
+            lifecyclecompiler            : "androidx.lifecycle:lifecycle-compiler:${commonDependencies.lifecycleVersion}",
+            analytics                    : "com.segment.analytics.android:analytics:${commonDependencies.analyticsVersion}",
+            firebaseanalytics            : "com.google.firebase:firebase-analytics:17.2.0",
+            json                         : "com.googlecode.json-simple:json-simple:1.1",
+            leacysupport                 : "androidx.legacy:legacy-support-v4:${commonDependencies.leacysupportversion}",
+            facebookshimmer              : "com.facebook.shimmer:shimmer:${commonDependencies.shimmerversion}",
+            kotlinxCoroutines            : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${commonDependencies.kotlinxCoroutinesVersion}",
+            exoplayer                    : "com.google.android.exoplayer:exoplayer:2.11.4",
+            youtubeplayer                : "com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5",
+            androidxrecyclerview         : "androidx.recyclerview:recyclerview:1.0.0",
+            corektxandroidx              : "androidx.core:core-ktx:1.3.1",
+            flowlayout                   : "com.nex3z:flow-layout:1.2.4",
+            flexbox                      : "com.google.android:flexbox:2.0.1",
+            webpdecoder                  : "com.zlc.glide:webpdecoder:2.0.4.11.0",
+            lottie                       : "com.airbnb.android:lottie:${commonDependencies.lottieVersion}",
+            fresco                       : "com.facebook.fresco:fresco:${commonDependencies.frescoVersion}",
+            frescoAnimatedWebp           : "com.facebook.fresco:animated-webp:${commonDependencies.frescoVersion}",
+            frescoWebpSupport            : "com.facebook.fresco:webpsupport:${commonDependencies.frescoVersion}",
+            frescoAnimatedGif            : "com.facebook.fresco:animated-gif:${commonDependencies.frescoAnimatedGifVersion}",
+            location                     : "com.google.android.gms:play-services-location:${commonDependencies.location}",
+            auth                         : "com.google.android.gms:play-services-auth:${commonDependencies.auth}",
+            identity                     : "com.google.android.gms:play-services-identity:${commonDependencies.identity}",
+            phoneselector                : "com.google.android.gms:play-services-auth-api-phone:${commonDependencies.phoneselector}",
+            servicebase                  : "com.google.android.gms:play-services-base:${commonDependencies.servicebase}",
+            pulltorefresh                : "androidx.swiperefreshlayout:swiperefreshlayout:${commonDependencies.pulltorefresh}",
+
+    ]
+    kaptLibraries = [
+            archLifeCycle: "android.arch.lifecycle:compiler:${commonDependencies.archLifeCycleVersion}",
+    ]
+
+    testLibraries = [
+            junit4   : "junit:junit:${commonDependencies.junit4Version}",
+            mockK    : "io.mockk:mockk:${commonDependencies.mockKVersion}",
+            rxKotlin : libraries.rxKotlin,
+            rxAndroid: libraries.rxAndroid
+    ]
+
+    androidTestLibraries = [
+            testRunner: "com.android.support.test:runner:${commonDependencies.testRunnerVersion}",
+            testRules : "com.android.support.test:rules:${commonDependencies.testRunnerVersion}",
+            espresso  : "com.android.support.test.espresso:espresso-core:${commonDependencies.espressoVersion}",
+            mockK     : "io.mockk:mockk-android:${commonDependencies.mockKVersion}"
+    ]
+}

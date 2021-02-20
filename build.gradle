@@ -1,0 +1,134 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'dependencies.gradle'
+buildscript {
+    ext.kotlin_version = '1.4.20'
+    ext {
+        dokkaVersion = '0.9.17'
+        navigationVersion = '2.2.2'
+    }
+    repositories {
+        google()
+        jcenter()
+        maven { url 'maven' }
+        maven { url 'https://maven.google.com' }
+        maven { url "https://dl.bintray.com/osborn/Android" }
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokkaVersion"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "http://dl.bintray.com/jetbrains/spek" }
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+// This method will check the tasks that will be run and depending on that it select which flavor is selected
+// And it will return the corresponding Version properties file (Staging|Release)
+def getVersionFileNameDependsOnBuildType() {
+    def taskNames = gradle.startParameter.taskNames
+    for (String taskName : taskNames) {
+        if (taskName.contains("Debug")) {
+            return debugVersionFileName
+        } else if (taskName.contains("Release")) {
+            return releaseVersionFileName
+        } else {
+            return stagingVersionFileName
+        }
+    }
+}
+
+def readVersionName(def versionFileName, def taskName, def envName) {
+    def version = readVersion(versionFileName)
+    if (taskName == "release") {
+        return "${version[MAJOR]}.${version[MINOR]}.${version[PATCH]}"
+    } else {
+        return "${envName}-[${version[MAJOR]}.${version[MINOR]}.${version[PATCH]}]"
+    }
+}
+
+def readVersionNameOnly(def versionFileName) {
+    def version = readVersion(versionFileName)
+    return "${version[MAJOR]}.${version[MINOR]}.${version[PATCH]}"
+}
+
+def readBuildCode(def versionFileName) {
+    def version = readVersion(versionFileName)
+    def build = version[BUILD] as int
+    return build
+}
+
+def readVersion(def versionFileName) {
+    def versionFile = rootProject.file(versionFileName + ".properties")
+    def version = new Properties()
+    def stream
+    try {
+        stream = new FileInputStream(versionFile)
+        version.load(stream)
+    } catch (FileNotFoundException e) {
+    } finally {
+        if (stream != null) stream.close()
+    }
+    //by default if we're not able to read the file
+    if (!version[MAJOR]) version[MAJOR] = "1"
+    if (!version[MINOR]) version[MINOR] = "0"
+    if (!version[PATCH]) version[PATCH] = "0"
+    if (!version[BUILD]) version[BUILD] = "1"
+    return version
+}
+
+def updateVersionNumber(def major, def minor, def patch, def build, def versionFileName) {
+    def versionFile = rootProject.file(versionFileName + ".properties")
+    def version = readVersion(versionFileName)
+    println "updateVersionNumber :" + version
+    version[MAJOR] = major.toString()
+    version[MINOR] = minor.toString()
+    version[PATCH] = patch.toString()
+    version[BUILD] = build.toString()
+    def stream = new FileOutputStream(versionFile)
+    try {
+        version.store(stream, null)
+    } finally {
+        stream.close()
+    }
+}
+
+def getCurrentTaskName() {
+    def taskNames = gradle.startParameter.taskNames
+    for (String taskName : taskNames) {
+        if (taskName.contains("Debug")) {
+            return "debug"
+        } else if (taskName.contains("Release")) {
+            return "release"
+        } else {
+            return "flavor"
+        }
+    }
+}
+
+def getEnvironmentName() {
+    def taskNames = gradle.startParameter.taskNames
+    for (String taskName : taskNames) {
+        if (taskName.contains("Debug")) {
+            return rootProject.ext.appProperties['DEBUG_WORKING_ENV'].toLowerCase().replaceAll('"', '')
+        } else if (taskName.contains("Release")) {
+            return rootProject.ext.appProperties['WORKING_ENV'].toLowerCase().replaceAll('"', '')
+        } else {
+            return 'env'
+        }
+    }
+}
