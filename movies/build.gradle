@@ -58,6 +58,8 @@ dependencies {
     kapt "$libraries.daggerannotation"
     kapt "$libraries.daggerprocessor"
     annotationProcessor "$libraries.daggerannotation"
+    kapt "$libraries.roomcompiler"
+    annotationProcessor "$libraries.roomcompiler"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

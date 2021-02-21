@@ -20,6 +20,7 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
         kotlinOptions { jvmTarget = "1.8" }
+        buildConfigField 'String', 'API_DEVELOPER_TOKEN', "\"${api_developer_token}\""
     }
 
     dataBinding {
@@ -31,11 +32,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.appProperties['BASE_URL']
+            buildConfigField 'String', 'BASE_IMAGE_URL', rootProject.ext.appProperties['BASE_IMAGE_URL']
         }
         debug{
             minifyEnabled false
             testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
             buildConfigField 'String', 'BASE_URL', rootProject.ext.appProperties['BASE_URL_DEBUG']
+            buildConfigField 'String', 'BASE_IMAGE_URL', rootProject.ext.appProperties['BASE_IMAGE_URL_DEBUG']
         }
     }
     compileOptions {
@@ -78,6 +81,7 @@ dependencies {
     api "$libraries.roomruntime"
     api "$libraries.roomruntimektx"
     kapt "$libraries.roomcompiler"
+    annotationProcessor "$libraries.roomcompiler"
 
     //androidx
     api "$libraries.androidxcore"
