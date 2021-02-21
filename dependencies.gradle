@@ -85,6 +85,7 @@ ext {
             identity                         : "17.0.0",
             phoneselector                    : "17.4.0",
             servicebase                      : "17.6.0",
+            paging_version                   :"3.0.0-alpha07"
 
 
     ]
@@ -201,6 +202,7 @@ ext {
             phoneselector                : "com.google.android.gms:play-services-auth-api-phone:${commonDependencies.phoneselector}",
             servicebase                  : "com.google.android.gms:play-services-base:${commonDependencies.servicebase}",
             pulltorefresh                : "androidx.swiperefreshlayout:swiperefreshlayout:${commonDependencies.pulltorefresh}",
+            paging                        :"androidx.paging:paging-runtime:${commonDependencies.paging_version}"
 
     ]
     kaptLibraries = [

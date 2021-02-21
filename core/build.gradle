@@ -111,6 +111,8 @@ dependencies {
     api "$libraries.glide"
     api "$libraries.androidmaterial"
 
+    api "$libraries.paging"
+    
     //logging
     api "$libraries.timber"
 

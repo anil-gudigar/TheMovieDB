@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    def paging_version = "3.0.0-alpha07"
+    def paging_version = "3.0.0-beta01"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(":core")
     api project(":common")
@@ -62,15 +62,8 @@ dependencies {
     kapt "$libraries.roomcompiler"
     annotationProcessor "$libraries.roomcompiler"
 
-    implementation "androidx.paging:paging-runtime:$paging_version"
-    // alternatively - without Android dependencies for tests
-    testImplementation "androidx.paging:paging-common:$paging_version"
-
-    // optional - RxJava2 support
-    implementation "androidx.paging:paging-rxjava2:$paging_version"
-    // optional - Guava ListenableFuture support
-    implementation "androidx.paging:paging-guava:$paging_version"
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation "androidx.paging:paging-common:$paging_version"
 }
