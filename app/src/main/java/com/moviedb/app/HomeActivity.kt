@@ -66,6 +66,7 @@ class HomeActivity : BaseActivity(), HasSupportFragmentInjector {
     override fun navigate(screenName: String, bundle: Bundle) {
         when (screenName) {
             Navigation.ScreenName.MOVIE_DETAILS -> {
+                //Can be use case of Deep links
                 findNavController(R.id.nav_host_fragment).navigate(
                         R.id.nav_details, bundle
                 )
