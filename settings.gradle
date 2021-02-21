@@ -1,3 +1,4 @@
+include ':stylekit'
 include ':more'
 include ':discover'
 include ':core'
