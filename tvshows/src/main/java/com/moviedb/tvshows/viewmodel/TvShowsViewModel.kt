@@ -1,4 +1,4 @@
-package com.moviedb.tvshows.view
+package com.moviedb.tvshows.viewmodel
 
 import androidx.lifecycle.ViewModel
 

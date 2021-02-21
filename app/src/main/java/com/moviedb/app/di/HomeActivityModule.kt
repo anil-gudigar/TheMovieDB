@@ -2,6 +2,7 @@ package com.moviedb.app.di
 
 import com.moviedb.app.HomeActivity
 import com.moviedb.discover.di.MovieBuildersModule
+import com.moviedb.more.di.MoreBuilderModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -11,6 +12,6 @@ import dagger.android.ContributesAndroidInjector
 @Suppress("unused")
 @Module
 abstract class HomeActivityModule {
-    @ContributesAndroidInjector(modules = [MovieBuildersModule::class])
+    @ContributesAndroidInjector(modules = [MovieBuildersModule::class, MoreBuilderModule::class])
     abstract fun contributeHomeActivity(): HomeActivity
 }

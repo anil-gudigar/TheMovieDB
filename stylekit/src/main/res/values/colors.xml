@@ -25,4 +25,6 @@
 
     <color name="bottom_navigation_selected">#3cd690</color>
     <color name="bottom_navigation_normal">#38445a</color>
+    <color name="subtext_white">#66FFFFFF</color>
+    <color name="divider_white">#33FFFFFF</color>
 </resources>

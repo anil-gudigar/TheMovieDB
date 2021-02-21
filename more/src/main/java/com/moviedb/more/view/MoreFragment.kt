@@ -6,27 +6,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.moviedb.core.di.Injectable
+import com.moviedb.core.di.injectViewModel
+import com.moviedb.core.view.BaseViewModelFragment
 import com.moviedb.more.R
+import com.moviedb.more.databinding.MoreFragmentBinding
+import com.moviedb.more.domain.model.MoreModel
+import com.moviedb.more.view.adapters.MoreAdapter
+import com.moviedb.more.viewmodel.MoreViewModel
+import javax.inject.Inject
 
-class MoreFragment : Fragment() {
+class MoreFragment : BaseViewModelFragment<MoreFragmentBinding, MoreViewModel>(), Injectable {
 
-    companion object {
-        fun newInstance() = MoreFragment()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var adapter: MoreAdapter
+
+    override fun getLayout(): Int {
+        return R.layout.more_fragment
     }
 
-    private lateinit var viewModel: MoreViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.more_fragment, container, false)
+    override fun initView() {
+        viewModel = injectViewModel(viewModelFactory)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+        adapter = context?.let { MoreModel.getMoreList(it) }
+            ?.let { MoreAdapter(it) } ?: MoreAdapter(arrayListOf())
+        binding.rvMore.adapter = adapter
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MoreViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun navigateTo(pageName: String, bundle: Bundle) {
+        //Do nothing
     }
 
 }
