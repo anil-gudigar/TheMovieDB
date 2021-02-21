@@ -8,5 +8,14 @@
         android:id="@+id/nav_tvshows"
         android:name="com.moviedb.tvshows.view.TvShowsFragment"
         android:label="@string/title_tvshows"
-        tools:layout="@layout/tv_shows_fragment"></fragment>
+        tools:layout="@layout/tv_shows_fragment">
+        <action
+            android:id="@+id/action_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.moviedb.tvshows.view.DetailsFragment"
+        android:label="@string/title_details"
+        tools:layout="@layout/tv_details_fragment" />
 </navigation>
