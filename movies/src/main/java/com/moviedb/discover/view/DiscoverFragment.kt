@@ -53,7 +53,6 @@ class DiscoverFragment : BaseViewModelFragment<FragmentDiscoverBinding, Discover
                 DataWrapper.Status.LOADING -> binding.progressBar.show()
                 DataWrapper.Status.ERROR -> {
                     binding.progressBar.hide()
-                    //Snackbar.make(binding.discoverLayout, result.message!!, Snackbar.LENGTH_LONG).show()
                 }
             }
         })
