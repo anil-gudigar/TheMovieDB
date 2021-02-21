@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">The Internet connection appears to be offline.</string>
+</resources>
