@@ -16,7 +16,7 @@ import com.moviedb.discover.databinding.ListItemBinding
 /**
  * Adapter for the [RecyclerView] in [DiscoverFragment].
  */
-class DiscoverMovieAdapter : ListAdapter<Movie, DiscoverMovieAdapter.ViewHolder>(DiffCallback()) {
+class DiscoverMovieAdapter(val listener: DiscoverMovieClickListener) : ListAdapter<Movie, DiscoverMovieAdapter.ViewHolder>(DiffCallback()) {
     val ARG_MOVIEID = "movieid"
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,11 +29,11 @@ class DiscoverMovieAdapter : ListAdapter<Movie, DiscoverMovieAdapter.ViewHolder>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ListItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+                ListItemBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                )
         )
     }
 
@@ -41,25 +41,23 @@ class DiscoverMovieAdapter : ListAdapter<Movie, DiscoverMovieAdapter.ViewHolder>
         return View.OnClickListener {
             val args = Bundle()
             args.putString(ARG_MOVIEID, id)
-//            val deeplink = Navigation.findNavController(it)
-//                .createDeepLink()
-//                .setDestination(R.id.navigation_details)
-//                .setArguments(args)
-//                .createPendingIntent()
-//            deeplink.send()
+            listener?.onDiscoverMovieClicked(args)
         }
     }
 
     class ViewHolder(
-        private val binding: ListItemBinding
+            private val binding: ListItemBinding
     ) : RecyclerView.ViewHolder(binding.moiveItem) {
-
         fun bind(listener: View.OnClickListener, item: Movie) {
             binding.apply {
                 clickListener = listener
                 this.movie = item
             }
         }
+    }
+
+    interface DiscoverMovieClickListener {
+        fun onDiscoverMovieClicked(item: Bundle)
     }
 }
 

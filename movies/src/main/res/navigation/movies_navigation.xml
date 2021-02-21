@@ -8,5 +8,14 @@
         android:id="@+id/nav_discover"
         android:name="com.moviedb.discover.view.DiscoverFragment"
         android:label="@string/title_discover"
-        tools:layout="@layout/fragment_discover"></fragment>
+        tools:layout="@layout/fragment_discover">
+        <action
+            android:id="@+id/action_nav_details"
+            app:destination="@id/nav_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.moviedb.discover.view.DetailsFragment"
+        android:label="@string/title_details"
+        tools:layout="@layout/details_fragment" />
 </navigation>

@@ -4,13 +4,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.moviedb.core.navigation.Navigation
 import com.moviedb.core.view.BaseActivity
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
@@ -65,6 +64,13 @@ class HomeActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     override fun navigate(screenName: String, bundle: Bundle) {
+        when (screenName) {
+            Navigation.ScreenName.MOVIE_DETAILS -> {
+                findNavController(R.id.nav_host_fragment).navigate(
+                        R.id.nav_details, bundle
+                )
+            }
+        }
     }
 
     override fun hideBottomNav() {

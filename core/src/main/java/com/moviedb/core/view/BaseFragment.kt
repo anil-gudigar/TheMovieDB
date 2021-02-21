@@ -20,15 +20,17 @@ abstract class BaseFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         TAG = this.javaClass.simpleName
         return bindView(inflater, container)
     }
 
     protected abstract fun bindView(inflater: LayoutInflater, container: ViewGroup?): View
+
+    abstract fun navigateTo(pageName: String, bundle: Bundle)
 
     fun navigate(screenName: String, bundle: Bundle) {
         if (activity is BaseActivity) {
@@ -47,4 +49,5 @@ abstract class BaseFragment : Fragment() {
             (activity as BaseActivity).showBottomNav()
         }
     }
+
 }

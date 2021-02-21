@@ -1,5 +1,6 @@
 package com.moviedb.discover.di
 
+import com.moviedb.discover.view.DetailsFragment
 import com.moviedb.discover.view.DiscoverFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,4 +12,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class MovieBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeDiscoverFragment(): DiscoverFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDetailsFragment(): DetailsFragment
 }
