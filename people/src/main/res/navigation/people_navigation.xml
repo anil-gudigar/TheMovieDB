@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_people"
+    app:startDestination="@id/nav_people">
+    <fragment
+        android:id="@+id/nav_people"
+        android:name="com.moviedb.people.view.PeopleFragment"
+        android:label="@string/title_people"
+        tools:layout="@layout/people_fragment"></fragment>
+</navigation>

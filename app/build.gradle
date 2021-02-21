@@ -106,7 +106,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(":core")
-    api project(":discover")
+    api project(":stylekit")
+    api project(":movies")
+    api project(":tvshows")
+    api project(":people")
     api project(":more")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

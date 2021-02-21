@@ -7,4 +7,6 @@
     <color name="colorPrimaryVariant">#0d253f</color>
     <color name="colorSecondary">#01b4e4</color>
     <color name="colorSecondaryVariant">#01b4e4</color>
+    <color name="colorNavigationSelected">#90cea1</color>
+    <color name="colorNavigationUnSelected">#D8D8D8</color>
 </resources>
