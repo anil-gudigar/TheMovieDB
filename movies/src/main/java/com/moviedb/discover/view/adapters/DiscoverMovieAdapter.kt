@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,13 +17,16 @@ import com.moviedb.discover.databinding.ListItemBinding
 /**
  * Adapter for the [RecyclerView] in [DiscoverFragment].
  */
-class DiscoverMovieAdapter(val listener: DiscoverMovieClickListener) : ListAdapter<Movie, DiscoverMovieAdapter.ViewHolder>(DiffCallback()) {
+class DiscoverMovieAdapter(val listener: DiscoverMovieClickListener) :
+    PagingDataAdapter<Movie, DiscoverMovieAdapter.ViewHolder>(DiffCallback()) {
     val ARG_MOVIEID = "movieid"
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
         holder.apply {
-            bind(createOnClickListener(movie.id), movie)
+            if (movie != null) {
+                bind(createOnClickListener(movie.id), movie)
+            }
             itemView.tag = movie
         }
     }

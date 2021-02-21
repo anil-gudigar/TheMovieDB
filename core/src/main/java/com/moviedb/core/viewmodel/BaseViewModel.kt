@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.AndroidViewModel
 import com.moviedb.core.data.DataWrapper
+import kotlinx.coroutines.Job
 import retrofit2.HttpException
 import retrofit2.Response
 import java.net.HttpURLConnection
@@ -19,6 +20,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     override fun onCleared() {
         super.onCleared()
     }
+    var dataLoadJob: Job? = null
 
     fun <T> execute(response: Response<T>): DataWrapper<T> {
         try {

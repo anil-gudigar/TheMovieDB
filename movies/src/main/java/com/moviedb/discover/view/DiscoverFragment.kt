@@ -3,6 +3,7 @@ package com.moviedb.discover.view
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.moviedb.core.data.DataWrapper
@@ -17,6 +18,8 @@ import com.moviedb.discover.viewmodel.DiscoverViewModel
 import com.moviedb.stylekit.ui.GridItemDecoration
 import com.moviedb.stylekit.ui.hide
 import com.moviedb.stylekit.ui.show
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DiscoverFragment : BaseViewModelFragment<FragmentDiscoverBinding, DiscoverViewModel>(), DiscoverMovieAdapter.DiscoverMovieClickListener
@@ -35,12 +38,9 @@ class DiscoverFragment : BaseViewModelFragment<FragmentDiscoverBinding, Discover
         val adapter = DiscoverMovieAdapter(this)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
-
         binding.recyclerView.addItemDecoration(GridItemDecoration(0, 2))
         binding.recyclerView.adapter = adapter
-
         subscribeUi(binding, adapter)
-
         setHasOptionsMenu(true)
     }
 
@@ -53,20 +53,12 @@ class DiscoverFragment : BaseViewModelFragment<FragmentDiscoverBinding, Discover
     }
 
     private fun subscribeUi(binding: FragmentDiscoverBinding, adapter: DiscoverMovieAdapter) {
-        viewModel.getMovies().observe(viewLifecycleOwner, Observer { result ->
-            when (result.status) {
-                DataWrapper.Status.SUCCESS -> {
-                    binding.progressBar.hide()
-                    result.data?.let {
-                        adapter.submitList(it)
-                    }
-                }
-                DataWrapper.Status.LOADING -> binding.progressBar.show()
-                DataWrapper.Status.ERROR -> {
-                    binding.progressBar.hide()
-                }
+        lifecycleScope.launch {
+            viewModel.getMovies().collectLatest { pagingData ->
+                binding.progressBar.hide()
+                adapter.submitData(pagingData)
             }
-        })
+        }
     }
 
     override fun onDiscoverMovieClicked(item: Bundle) {
