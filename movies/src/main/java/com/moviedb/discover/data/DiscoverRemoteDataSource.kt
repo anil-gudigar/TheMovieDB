@@ -1,12 +1,8 @@
 package com.moviedb.discover.data
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import com.moviedb.common.domain.model.Movie
 import com.moviedb.core.BuildConfig
-import com.moviedb.core.api.BaseDataSource
-import com.moviedb.core.data.DataWrapper
 import com.moviedb.discover.data.remote.DiscoverService
 import retrofit2.HttpException
 import java.io.IOException
@@ -26,7 +22,7 @@ class DiscoverRemoteDataSource @Inject constructor(private val service: Discover
                 BuildConfig.API_DEVELOPER_TOKEN,
                 "en",
                 "popularity.desc",
-                "true",
+                "false",
                 "true",
                 position
             )
@@ -37,7 +33,6 @@ class DiscoverRemoteDataSource @Inject constructor(private val service: Discover
                     movies = body.results ?: arrayListOf()
                 }
             }
-            Log.d("Anil", "Service -> getMovies: ${movies.size}")
             LoadResult.Page(
                 data = movies,
                 prevKey = if (position == STARTING_PAGE_INDEX) null else position,
