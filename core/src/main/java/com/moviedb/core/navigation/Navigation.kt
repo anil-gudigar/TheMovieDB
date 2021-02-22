@@ -8,5 +8,7 @@ object Navigation {
 
     object ScreenName {
         const val MOVIE_DETAILS = "movie_details"
+        const val TVSHOW_DETAILS = "tvshow_details"
+        const val PEOPLE_DETAILS = "people_details"
     }
 }

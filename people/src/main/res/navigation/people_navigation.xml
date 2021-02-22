@@ -8,5 +8,14 @@
         android:id="@+id/nav_people"
         android:name="com.moviedb.people.view.PeopleFragment"
         android:label="@string/title_people"
-        tools:layout="@layout/people_fragment"></fragment>
+        tools:layout="@layout/people_fragment">
+        <action
+            android:id="@+id/action_people_nav_details"
+            app:destination="@id/nav_people_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_people_details"
+        android:name="com.moviedb.people.view.PeopleDetailsFragment"
+        android:label="@string/title_details"
+        tools:layout="@layout/people_details_fragment" />
 </navigation>
