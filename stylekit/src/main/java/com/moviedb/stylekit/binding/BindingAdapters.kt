@@ -13,7 +13,6 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
         Glide.with(view.context)
             .load(imageUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .error(R.drawable.placeholder)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }
@@ -25,7 +24,6 @@ fun bindBackDropImageFromUrl(view: ImageView, imageUrl: String?) {
         Glide.with(view.context)
             .load(imageUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.placeholder)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }
