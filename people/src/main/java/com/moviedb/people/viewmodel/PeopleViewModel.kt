@@ -1,4 +1,4 @@
-package com.moviedb.people.view
+package com.moviedb.people.viewmodel
 
 import androidx.lifecycle.ViewModel
 

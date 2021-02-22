@@ -1,4 +1,4 @@
-package com.moviedb.discover.domain.model
+package com.moviedb.common.domain.model
 
 import com.google.gson.annotations.SerializedName
 import com.moviedb.common.domain.model.Movie

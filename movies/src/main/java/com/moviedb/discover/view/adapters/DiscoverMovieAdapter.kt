@@ -45,7 +45,7 @@ class DiscoverMovieAdapter(val listener: DiscoverMovieClickListener) :
         return View.OnClickListener {
             val args = Bundle()
             args.putString(ARG_MOVIEID, id)
-            listener?.onDiscoverMovieClicked(args)
+            listener.onDiscoverMovieClicked(args)
         }
     }
 

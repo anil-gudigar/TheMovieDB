@@ -44,7 +44,7 @@ class TVShowMovieAdapter(val listener: TVShowMovieClickListener) :
         return View.OnClickListener {
             val args = Bundle()
             args.putString(ARG_MOVIEID, id)
-            listener?.onTVShowMovieClicked(args)
+            listener.onTVShowMovieClicked(args)
         }
     }
 

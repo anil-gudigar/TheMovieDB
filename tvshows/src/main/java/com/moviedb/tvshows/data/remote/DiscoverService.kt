@@ -1,7 +1,7 @@
 package com.moviedb.tvshows.data.remote
 
+import com.moviedb.common.domain.model.DiscoverMovie
 import com.moviedb.common.domain.model.Movie
-import com.moviedb.discover.domain.model.DiscoverMovie
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

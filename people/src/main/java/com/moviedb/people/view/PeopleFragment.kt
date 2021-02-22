@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.moviedb.people.R
+import com.moviedb.people.viewmodel.PeopleViewModel
 
 class PeopleFragment : Fragment() {
 
