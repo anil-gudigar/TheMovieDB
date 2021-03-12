@@ -5,7 +5,7 @@
 # TheMovieDB
 http://themoviedb.org
 
-![](https://github.com/anil-gudigar/TheMovieDB/blob/main/previewed_2.png)
+![](https://github.com/anil-gudigar/TheMovieDB/blob/main/previewed_1.png)
 
 * Quick summary\
 Movie DB App using Clean Architecture with MVVM pattern. Used Databinding, Daager 2, Retrofit 2, OkHttp 3. Used Room Databased for persistence and Offline support.
